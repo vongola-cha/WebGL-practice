@@ -27,8 +27,7 @@ void main(){
 }
 `;
 
-// a function to compile shaders
-// call the fragment shader and the vertex shader, and get the obeject from the shaders.
+
 function createShader(gl, type, source){
     let shader = gl.createShader(type);
     gl.shaderSource(shader, source);
@@ -42,7 +41,7 @@ function createShader(gl, type, source){
     gl.deleteShader(shader);
 }
 
-// we need a function to link shaders into a program
+
 function createProgram(gl, vertexShader, fragmentShader){
   let  program = gl.createProgram();
   gl.attachShader(program, vertexShader);
@@ -58,11 +57,8 @@ function createProgram(gl, vertexShader, fragmentShader){
 }
 
 // ============================= MAIN FUNCTION  =============================
-/* main function that execute steps to 
-   render a single triangle on the canvas
-*/
+
 function initWebGL(){
-  // get canvas from DOM (HTML)
   let canvas = document.querySelector("#c");
 
   /** @type {WebGLRenderingContext} */
@@ -75,7 +71,6 @@ function initWebGL(){
   let positionAttributeLocation = gl.getAttribLocation(program, 'a_position'); 
   let colorAttributeLocation = gl.getAttribLocation(program, 'a_color');
   // ---------------------------- vertices position   ----------------------------
-  // create memory buffer for vertex shader and copy/transfer vertices to GPU
   // position
   let positionBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
@@ -109,19 +104,16 @@ function initWebGL(){
     4, 7, 6,  4, 6, 5     // back
   ];
 
-  // transfer data from cpu to gpu
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangleVertices), gl.STATIC_DRAW);
-  // tell vertex shader how to extract/pull/interpret bytes in buffer
-  // look up data address
   gl.enableVertexAttribArray(positionAttributeLocation);  
   // specifically how to interpret bits
   let FSIZE = 4;
-  let size = 3; // get/read 3 components per iteration --here means x,y,z  if it is 2, it means x and y.
-  let type = gl.FLOAT; // size in bits for each item
-  let normalize = false;  // do not normalize data, generally Never
-  let stride = 6*FSIZE; // used to skip over bytes when different attributes are stored in buffer (ie position, color)
-  let offset = 0;  // location to start reading data from in the buffer
-  gl.vertexAttribPointer(positionAttributeLocation, size, type, normalize, stride, offset); // (a-position,......)
+  let size = 3; 
+  let type = gl.FLOAT; 
+  let normalize = false;  
+  let stride = 6*FSIZE; 
+  let offset = 0;  
+  gl.vertexAttribPointer(positionAttributeLocation, size, type, normalize, stride, offset); 
 
   // ---------------------------- vertices color   ----------------------------
   gl.enableVertexAttribArray(colorAttributeLocation);
@@ -137,7 +129,6 @@ function initWebGL(){
   gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint8Array(indices), gl.STATIC_DRAW);
   let n=indices.length;
 
-  // tell the GPU which program to use 
   gl.useProgram(program);
 
   // --------------------------- Projection & View Matrix ---------------------------
