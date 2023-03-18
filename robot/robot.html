@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clear Canvas Example</title>
+    <script src="./gl-matrix.js" ></script>
+    <script src="./robot.js" ></script>
+    </script>
+</head>
+<body onload="initWebGL()">
+    
+    <h1 align="center">A Simple Robot</h1>
+    <ul>
+        <li>Author : Xinru Shi</li>
+    </ul>
+    <table >
+        <tr>
+            <th>Right Arm Rotation:</th>
+            <th>&nbsp;&nbsp;&nbsp;&nbsp;Left Arm Rotation:</th>
+            <th>&nbsp;&nbsp;&nbsp;&nbsp;Torso Rotation:</th>
+            <th>&nbsp;&nbsp;&nbsp;&nbsp;Head Rotation:</th>
+            <th>&nbsp;&nbsp;&nbsp;&nbsp;Right Leg Rotation:</th>
+            <th>&nbsp;&nbsp;&nbsp;&nbsp;Left Leg Rotation:</th>
+        </tr>
+        <tr>
+            <td>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;Upper X <input id="upperRX" type="range" min="-90" max="90.0" step="1" value="0.0" /> </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;Upper Y <input id="upperRY" type="range" min="-90" max="90.0" step="1" value="90.0" /> </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;Upper Z <input id="upperRZ" type="range" min="-90" max="90.0" step="1" value="0.0" /> </div>
+            </td>
+            <td>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;Upper X <input id="upperLX" type="range" min="-90" max="90.0" step="1" value="0.0" /> </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;Upper Y <input id="upperLY" type="range" min="-90" max="90.0" step="1" value="-90.0" /> </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;Upper Z <input id="upperLZ" type="range" min="-90" max="90.0" step="1" value="0.0" /> </div>
+        
+            </td>
+            <td>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;X <input id="torsoX" type="range" min="-180" max="180.0" step="1" value="0.0" /> </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;Y <input id="torsoY" type="range" min="-180" max="180.0" step="1" value="0.0" /> </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;Z <input id="torsoZ" type="range" min="-180" max="180.0" step="1" value="0.0" /> </div>
+        
+            </td>
+            <td>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;X <input id="headX" type="range" min="-90" max="90.0" step="1" value="0.0" /> </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;Y <input id="headY" type="range" min="-90" max="90.0" step="1" value="0.0" /> </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;Z <input id="headZ" type="range" min="-90" max="90.0" step="1" value="0.0" /> </div>
+        
+            </td>
+            <td>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;X <input id="legRX" type="range" min="-90" max="90.0" step="1" value="0.0" /> </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;Y <input id="legRY" type="range" min="-90" max="90.0" step="1" value="0.0" /> </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;Z <input id="legRZ" type="range" min="-90" max="90.0" step="1" value="0.0" /> </div>
+            </td>
+            <td>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;X <input id="legLX" type="range" min="-90" max="90.0" step="1" value="0.0" /> </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;Y <input id="legLY" type="range" min="-90" max="90.0" step="1" value="0.0" /> </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;Z <input id="legLZ" type="range" min="-90" max="90.0" step="1" value="0.0" /> </div>
+        
+            </td>
+            
+        </tr>
+
+        <tr>
+            <td>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;Lower X <input id="lowerRX" type="range" min="-90" max="90.0" step="1" value="0.0" /> </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;Lower Y <input id="lowerRY" type="range" min="-90" max="90.0" step="1" value="0.0" /> </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;Lower Z <input id="lowerRZ" type="range" min="-90" max="90.0" step="1" value="30.0" /> </div>
+            </td> 
+           <td>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;Lower X <input id="lowerLX" type="range" min="-90" max="90.0" step="1" value="0.0" /> </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;Lower Y <input id="lowerLY" type="range" min="-90" max="90.0" step="1" value="0.0" /> </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;Lower Z <input id="lowerLZ" type="range" min="-90" max="90.0" step="1" value="-30.0" /> </div>
+        
+            </td>
+        </tr>
+        </table>
+        <table >
+            <tr>
+                <th>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;Length of Arms <input id="armLength" type="range" min="0.5" max="2" step="0.1" value="1" /> </div>
+                </th>
+                <th>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;Size of Torso <input id="torsoSize" type="range" min="0.5" max="2" step="0.1" value="1" /> </div>
+                </th>
+                <th>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;Size of Head <input id="headSize" type="range" min="0.1" max="2" step="0.1" value="0.5" /> </div>
+                </th>
+                <th>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;Length of Legs <input id="legLength" type="range" min="0.5" max="2" step="0.1" value="1" /> </div>
+                </th>
+            </tr>
+        </table>
+    
+    <canvas id="c" width="640" height="480"></canvas>
+    
+</body>
+</html>
